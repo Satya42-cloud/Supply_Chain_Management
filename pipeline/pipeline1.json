@@ -283,7 +283,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Iterate2",
+						"activity": "SCM_Silver",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -313,6 +313,33 @@
 					"referenceName": "sql_LS",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "SCM_Silver",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Iterate2",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Repos/bibekprusti@gmail.com/Supply_Chain_Management/SCM (Silver)"
+				},
+				"linkedServiceName": {
+					"referenceName": "databricks_LS",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"variables": {
@@ -323,8 +350,6 @@
 				"type": "String"
 			}
 		},
-		"annotations": [],
-		"lastPublishTime": "2025-02-20T08:44:10Z"
-	},
-	"type": "Microsoft.DataFactory/factories/pipelines"
+		"annotations": []
+	}
 }
