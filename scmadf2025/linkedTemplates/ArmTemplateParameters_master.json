@@ -1,0 +1,57 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "scmadf2025"
+		},
+		"Git_LS_password": {
+			"value": ""
+		},
+		"Git_LS2_password": {
+			"value": ""
+		},
+		"adls_ls_accountKey": {
+			"value": ""
+		},
+		"adls_ls2_accountKey": {
+			"value": ""
+		},
+		"sql_LS_password": {
+			"value": ""
+		},
+		"Git_LS_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/Satya42-cloud/Supply_Chain_Management/refs/heads/main/Static_Data/"
+		},
+		"Git_LS_properties_typeProperties_userName": {
+			"value": "satyajeetswain168@gmail.com"
+		},
+		"Git_LS2_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/Satya42-cloud/Supply_Chain_Management/refs/heads/main/Stream_Data/"
+		},
+		"Git_LS2_properties_typeProperties_userName": {
+			"value": "satyajeetswain168@gmail.com"
+		},
+		"adls_ls_properties_typeProperties_url": {
+			"value": "https://scmdataset2025.dfs.core.windows.net/"
+		},
+		"adls_ls2_properties_typeProperties_url": {
+			"value": "https://scmdataset2025.dfs.core.windows.net/"
+		},
+		"sql_LS_properties_typeProperties_server": {
+			"value": "serverscm.database.windows.net"
+		},
+		"sql_LS_properties_typeProperties_database": {
+			"value": "scmdatabase"
+		},
+		"sql_LS_properties_typeProperties_userName": {
+			"value": "Satya"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
