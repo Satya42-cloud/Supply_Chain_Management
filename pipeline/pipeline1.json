@@ -283,7 +283,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "SCM_Silver",
+						"activity": "Iterate2",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -319,7 +319,7 @@
 				"type": "DatabricksNotebook",
 				"dependsOn": [
 					{
-						"activity": "Iterate2",
+						"activity": "Update_Quarter",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -334,7 +334,44 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Repos/bibekprusti@gmail.com/Supply_Chain_Management/SCM (Silver)"
+					"notebookPath": "/Repos/bibekprusti@gmail.com/Supply_Chain_Management/SCM (Silver)",
+					"baseParameters": {
+						"DatasetName": {
+							"value": "@activity('LastLoadedQuarter').output.DatasetName",
+							"type": "Expression"
+						},
+						"Quarter": {
+							"value": "@variables('NextQuarter')",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "databricks_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "SCM_Gold",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "SCM_Silver",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Repos/bibekprusti@gmail.com/Supply_Chain_Management/SCM (Gold)"
 				},
 				"linkedServiceName": {
 					"referenceName": "databricks_LS",
