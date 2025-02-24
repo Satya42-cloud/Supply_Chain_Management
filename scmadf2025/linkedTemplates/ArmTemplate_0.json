@@ -23,6 +23,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'adls_ls2'"
 		},
+		"databricks_LS_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'databricks_LS'"
+		},
 		"sql_LS_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'sql_LS'"
@@ -50,6 +54,10 @@
 		"adls_ls2_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://scmdataset2025.dfs.core.windows.net/"
+		},
+		"databricks_LS_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0220-090825-mln75nvi"
 		},
 		"sql_LS_properties_typeProperties_server": {
 			"type": "string",
@@ -138,6 +146,24 @@
 						"type": "SecureString",
 						"value": "[parameters('adls_ls2_accountKey')]"
 					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/databricks_LS')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://adb-1751868069960906.6.azuredatabricks.net",
+					"accessToken": {
+						"type": "SecureString",
+						"value": "[parameters('databricks_LS_accessToken')]"
+					},
+					"existingClusterId": "[parameters('databricks_LS_properties_typeProperties_existingClusterId')]"
 				}
 			},
 			"dependsOn": []
@@ -694,6 +720,60 @@
 							"referenceName": "sql_LS",
 							"type": "LinkedServiceReference"
 						}
+					},
+					{
+						"name": "SCM_Silver",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "Update_Quarter",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Repos/bibekprusti@gmail.com/Supply_Chain_Management/SCM (Silver)"
+						},
+						"linkedServiceName": {
+							"referenceName": "databricks_LS",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "SCM_Gold",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "SCM_Silver",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Repos/bibekprusti@gmail.com/Supply_Chain_Management/SCM (Gold)"
+						},
+						"linkedServiceName": {
+							"referenceName": "databricks_LS",
+							"type": "LinkedServiceReference"
+						}
 					}
 				],
 				"policy": {
@@ -713,6 +793,7 @@
 				"[concat(variables('factoryId'), '/datasets/check_files')]",
 				"[concat(variables('factoryId'), '/datasets/sql_DS')]",
 				"[concat(variables('factoryId'), '/linkedServices/sql_LS')]",
+				"[concat(variables('factoryId'), '/linkedServices/databricks_LS')]",
 				"[concat(variables('factoryId'), '/datasets/Git_DS')]",
 				"[concat(variables('factoryId'), '/datasets/sink_ds')]",
 				"[concat(variables('factoryId'), '/datasets/git_DS2')]",

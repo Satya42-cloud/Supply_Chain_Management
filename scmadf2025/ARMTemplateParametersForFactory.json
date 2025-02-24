@@ -17,6 +17,9 @@
 		"adls_ls2_accountKey": {
 			"value": ""
 		},
+		"databricks_LS_accessToken": {
+			"value": ""
+		},
 		"sql_LS_password": {
 			"value": ""
 		},
@@ -37,6 +40,9 @@
 		},
 		"adls_ls2_properties_typeProperties_url": {
 			"value": "https://scmdataset2025.dfs.core.windows.net/"
+		},
+		"databricks_LS_properties_typeProperties_existingClusterId": {
+			"value": "0220-090825-mln75nvi"
 		},
 		"sql_LS_properties_typeProperties_server": {
 			"value": "serverscm.database.windows.net"
