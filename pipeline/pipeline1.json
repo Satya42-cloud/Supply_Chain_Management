@@ -334,17 +334,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Repos/bibekprusti@gmail.com/Supply_Chain_Management/SCM (Silver)",
-					"baseParameters": {
-						"DatasetName": {
-							"value": "@activity('LastLoadedQuarter').output.DatasetName",
-							"type": "Expression"
-						},
-						"Quarter": {
-							"value": "@variables('NextQuarter')",
-							"type": "Expression"
-						}
-					}
+					"notebookPath": "/Repos/bibekprusti@gmail.com/Supply_Chain_Management/SCM (Silver)"
 				},
 				"linkedServiceName": {
 					"referenceName": "databricks_LS",
